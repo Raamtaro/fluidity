@@ -2,6 +2,7 @@ import Setup from "../Common/Setup.js";
 import * as THREE from 'three'
 
 import ExternalForce from "./FBOPasses/NavierTerms/ExternalForce.js";
+import Advection from "./FBOPasses/NavierTerms/Advection.js";
 
 export default class Simulation {
     constructor(props) {
@@ -61,6 +62,14 @@ export default class Simulation {
     }
 
     createShaderPass() {
+        this.advection = new Advection({
+            cellScale: this.cellScale,
+            fboSize: this.fboSize,
+            dt: this.options.dt,
+            src: this.fbos.vel_0,
+            dst: this.fbos.vel_1
+        });
+
         this.externalForce = new ExternalForce(
             {
                 cellScale: this.cellScale,
@@ -90,6 +99,14 @@ export default class Simulation {
     }
 
     update() {
+
+        if(this.options.isBounce){
+            this.boundarySpace.set(0, 0);
+        } else {
+            this.boundarySpace.copy(this.cellScale);
+        }
+
+        this.advection.update(this.options);
 
         this.externalForce.update({
             cursor_size: this.options.cursor_size,
