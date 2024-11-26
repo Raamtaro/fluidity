@@ -42,7 +42,7 @@ export default class Output{
 
         this.debugQuad = new THREE.Mesh(
             new THREE.PlaneGeometry(.5, .5),
-            new THREE.MeshBasicMaterial({ map: this.simulation.fbos.vel_1.texture })
+            new THREE.MeshBasicMaterial({ map: this.simulation.fbos.vel_0.texture })
           );
         this.debugQuad.position.set(-0.75, 0.75, 0); 
 

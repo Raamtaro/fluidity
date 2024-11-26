@@ -3,6 +3,10 @@ import * as THREE from 'three'
 
 import ExternalForce from "./FBOPasses/NavierTerms/ExternalForce.js";
 import Advection from "./FBOPasses/NavierTerms/Advection.js";
+import Viscous from "./FBOPasses/NavierTerms/Viscous.js";
+import Divergence from "./FBOPasses/NavierTerms/Divergence.js";
+import Poisson from "./FBOPasses/NavierTerms/Poisson.js";
+import Pressure from "./FBOPasses/NavierTerms/Pressure.js";
 
 export default class Simulation {
     constructor(props) {
@@ -77,6 +81,41 @@ export default class Simulation {
                 dst: this.fbos.vel_1
             }
         )
+
+        this.viscous = new Viscous({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            viscous: this.options.viscous,
+            src: this.fbos.vel_1,
+            dst: this.fbos.vel_viscous1,
+            dst_: this.fbos.vel_viscous0,
+            dt: this.options.dt,
+        });
+
+        this.divergence = new Divergence({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            src: this.fbos.vel_viscous0,
+            dst: this.fbos.div,
+            dt: this.options.dt,
+        });
+
+        this.poisson = new Poisson({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            src: this.fbos.div,
+            dst: this.fbos.pressure_1,
+            dst_: this.fbos.pressure_0,
+        });
+
+        this.pressure = new Pressure({
+            cellScale: this.cellScale,
+            boundarySpace: this.boundarySpace,
+            src_p: this.fbos.pressure_0,
+            src_v: this.fbos.vel_viscous0,
+            dst: this.fbos.vel_0,
+            dt: this.options.dt,
+        });
     }
 
     calcSize(){
@@ -114,6 +153,24 @@ export default class Simulation {
             cellScale: this.cellScale
         });
 
-        console.log(this.fbos.vel_1.texture.uuid)
+        // console.log(this.fbos.vel_1.texture.uuid)
+
+        let vel = this.fbos.vel_1
+
+        if(this.options.isViscous){
+            vel = this.viscous.update({
+                viscous: this.options.viscous,
+                iterations: this.options.iterations_viscous,
+                dt: this.options.dt
+            });
+        }
+
+        this.divergence.update({vel})
+
+        const pressure = this.poisson.update({
+            iterations: this.options.iterations_poisson,
+        });
+
+        this.pressure.update({ vel , pressure});
     }
 }
