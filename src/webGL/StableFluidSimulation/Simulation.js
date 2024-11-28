@@ -33,7 +33,7 @@ export default class Simulation {
             cursor_size: 20,
             viscous: 30,
             isBounce: false,
-            dt: 0.005,
+            dt: 0.015,
             isViscous: true,
             BFECC: true
         };
