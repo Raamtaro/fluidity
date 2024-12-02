@@ -32,6 +32,8 @@ class Setup {
             }
         )
 
+        console.log(this.renderer)
+
         
 
         this.renderer.autoClear = false;

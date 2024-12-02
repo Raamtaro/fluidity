@@ -10,22 +10,26 @@ import particlesFragmentShader from '../shaders/particles/particles/fragment.gls
 class Particles {
     constructor(resources) {
 
-        this.scene = new THREE.Scene() //For now, this scene is for 
-        this.camera = new CustomCamera()
-        this.scene.add(this.camera.instance)
+        /** 
+         * Create the scene 
+         */
+        
+        this.createScene() //Gives us this.scene + this.camera (added to the scene)
+        console.log(this.scene)
 
-
-
+        /**
+         * Set the correct geoemetry - refer to sources.js, and input the desired `name` (type: string) into setupGeometries()
+         */
         this.models = resources
-        // console.log(this.models)
-        // this.geometry = null //For now I'll just have to access array indices manually to swap between models until I think of a better system
-        this.setupGeometries('eightHundredKOm')
+        this.setupGeometries('eightHundredKOm') //Gives us this.geometry
 
-        this.count = this.geometry.attributes.position.count
-
+        
+        /**
+         * Populate the UV and Size Arrays
+         */
         this.gpgpu = new GpgpuComputation(this.geometry)
         this.size = this.gpgpu.size
-        
+        this.count = this.geometry.attributes.position.count
         this.particlesUvArray = new Float32Array(this.count * 2)
         this.sizesArray = new Float32Array(this.count)
         this.populateArrays()
@@ -52,6 +56,14 @@ class Particles {
 
         this.setupPoints()
 
+        this.compileScene()
+
+    }
+
+    createScene() {
+        this.scene = new THREE.Scene() //For now, this scene is for 
+        this.camera = new CustomCamera()
+        this.scene.add(this.camera.instance)
     }
 
 
@@ -101,13 +113,38 @@ class Particles {
 
     //Call these in the WebGL function
 
+
+
+
+
+
+    compileScene() {
+        // Set this.target
+        const type = ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) ? THREE.HalfFloatType : THREE.FloatType;
+
+        Setup.renderer.compile(this.scene, this.camera.instance)
+        this.target = new THREE.WebGLRenderTarget(Setup.width, Setup.height, 
+            {   
+                type: type
+            }
+        )
+
+        this.target.texture.generateMipmaps = false
+
+    }
+
+    targetResize() {
+        this.target.setSize(Setup.width, Setup.height)
+    }
+
     resize () {
+        this.targetResize()
         this.camera.resize()
         this.shaderMaterial.uniforms.uResolution.value.set(Setup.width * Setup.pixelRatio, Setup.height * Setup.pixelRatio)
     }
 
     render() {
-        // Setup.renderer.setRenderTarget(null)
+        Setup.renderer.setRenderTarget(null)
         Setup.renderer.render(this.scene, this.camera.instance)
 
     }
