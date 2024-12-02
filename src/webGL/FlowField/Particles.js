@@ -19,7 +19,7 @@ class Particles {
         this.models = resources
         // console.log(this.models)
         // this.geometry = null //For now I'll just have to access array indices manually to swap between models until I think of a better system
-        this.setupGeometries('sevenHundredKFemale')
+        this.setupGeometries('eightHundredKOm')
 
         this.count = this.geometry.attributes.position.count
 
