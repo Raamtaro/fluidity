@@ -32,7 +32,7 @@ class Setup {
             }
         )
 
-        console.log(this.renderer)
+        // console.log(this.renderer)
 
         
 

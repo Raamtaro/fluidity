@@ -33,25 +33,25 @@ export default class WebGL {
         //Initialize common properties and set up canvas
 
         this.props.$wrapper.prepend(Setup.renderer.domElement);
-        this.particles = new Particles(this.resources.items)
+        // this.particles = new Particles(this.resources.items)
 
 
 
-        this.output = new Output()
+        this.output = new Output(this.resources.items)
     }
 
     render() {
         //Update WebGL innards
         Mouse.update()
         Setup.update()
-        this.particles.update() //This is a debug statement to see if the particle scene works
+        // this.particles.update() //This is a debug statement to see if the particle scene works
         this.output.update()
         // console.log('rendering')
     }
 
     resize() {
         Setup.resize()
-        this.particles.resize()
+        // this.particles.resize()
         this.output.resize()
 
     }

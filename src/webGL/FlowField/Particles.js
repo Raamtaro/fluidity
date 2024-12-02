@@ -113,11 +113,6 @@ class Particles {
 
     //Call these in the WebGL function
 
-
-
-
-
-
     compileScene() {
         // Set this.target
         const type = ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) ? THREE.HalfFloatType : THREE.FloatType;
@@ -129,7 +124,7 @@ class Particles {
             }
         )
 
-        this.target.texture.generateMipmaps = false
+        console.log(this.target)
 
     }
 
@@ -143,7 +138,14 @@ class Particles {
         this.shaderMaterial.uniforms.uResolution.value.set(Setup.width * Setup.pixelRatio, Setup.height * Setup.pixelRatio)
     }
 
-    render() {
+
+    targetSwap() {
+        Setup.renderer.setRenderTarget(this.target)
+        Setup.renderer.render(this.scene, this.camera.instance)
+        
+    }
+
+    render() { //I was using this as a test
         Setup.renderer.setRenderTarget(null)
         Setup.renderer.render(this.scene, this.camera.instance)
 
@@ -156,7 +158,8 @@ class Particles {
         this.shaderMaterial.uniforms.uTime.value = Setup.uniformElapsed
 
         this.points.rotation.x = 0.15 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.2)
-        this.render()
+        this.targetSwap()
+        // this.render()
     }
 }
 
