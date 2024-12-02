@@ -10,6 +10,14 @@ class Setup {
         this.fboHeight = null;
 
 
+
+        //Time
+        this.start = Date.now()
+        this.current = this.start
+        this.elapsed = 0
+        this.delta = 16
+
+
     }
 
     init() {
@@ -33,8 +41,9 @@ class Setup {
         this.renderer.setClearColor(0x000000)
         this.renderer.setPixelRatio(this.pixelRatio)
 
-        this.clock = new THREE.Clock()
-        this.clock.start();
+        // I think that I probably shouldn't need this
+        // this.clock = new THREE.Clock()
+        // this.clock.start();
     }
 
     resize(){
@@ -48,8 +57,14 @@ class Setup {
     }
 
     update(){
-        this.delta = this.clock.getDelta(); // Math.min(0.01, this.clock.getDelta());
-        this.time += this.delta;
+        const currentTime = Date.now()
+
+        this.delta = currentTime - this.current 
+        this.current = currentTime
+        this.elapsed = this.current - this.start
+
+        this.uniformElapsed = this.elapsed/1000 //Second conversion
+        this.uniformDelta = this.delta/1000 //Second conversion
     }
     
 }

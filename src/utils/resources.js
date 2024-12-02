@@ -6,6 +6,7 @@ import EventEmitter from './eventEmitter.js'
 
 class Resources extends EventEmitter {
     constructor(sources) {
+        super()
         this.sources = sources
 
         this.items = {}
@@ -13,7 +14,8 @@ class Resources extends EventEmitter {
         this.toLoad = this.sources.length
         this.loaded = 0
 
-
+        this.setLoaders()
+        this.startLoading()
     }
 
     setLoaders () {

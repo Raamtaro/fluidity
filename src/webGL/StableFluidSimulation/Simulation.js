@@ -28,7 +28,7 @@ export default class Simulation {
         this.options = {
             iterations_poisson: 32,
             iterations_viscous: 32,
-            mouse_force: 174,
+            mouse_force: 50,
             resolution: 0.5,
             cursor_size: 20,
             viscous: 30,
@@ -82,15 +82,15 @@ export default class Simulation {
             }
         )
 
-        this.viscous = new Viscous({
-            cellScale: this.cellScale,
-            boundarySpace: this.boundarySpace,
-            viscous: this.options.viscous,
-            src: this.fbos.vel_1,
-            dst: this.fbos.vel_viscous1,
-            dst_: this.fbos.vel_viscous0,
-            dt: this.options.dt,
-        });
+        // this.viscous = new Viscous({
+        //     cellScale: this.cellScale,
+        //     boundarySpace: this.boundarySpace,
+        //     viscous: this.options.viscous,
+        //     src: this.fbos.vel_1,
+        //     dst: this.fbos.vel_viscous1,
+        //     dst_: this.fbos.vel_viscous0,
+        //     dt: this.options.dt,
+        // });
 
         this.divergence = new Divergence({
             cellScale: this.cellScale,
@@ -157,13 +157,13 @@ export default class Simulation {
 
         let vel = this.fbos.vel_1
 
-        if(this.options.isViscous){
-            vel = this.viscous.update({
-                viscous: this.options.viscous,
-                iterations: this.options.iterations_viscous,
-                dt: this.options.dt
-            });
-        }
+        // if(this.options.isViscous){
+        //     vel = this.viscous.update({
+        //         viscous: this.options.viscous,
+        //         iterations: this.options.iterations_viscous,
+        //         dt: this.options.dt
+        //     });
+        // }
 
         this.divergence.update({vel})
 

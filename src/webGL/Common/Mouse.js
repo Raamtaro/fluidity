@@ -4,11 +4,17 @@ import Setup from "./Setup.js"
 class Mouse {
     constructor(){
         this.mouseMoved = false;
-        this.coords = new THREE.Vector2();
-        this.coords_old = new THREE.Vector2();
+        this.coords = new THREE.Vector2()
+        this.coords_old = new THREE.Vector2()
+        this.coords_trail = new THREE.Vector2()
         this.diff = new THREE.Vector2();
         this.timer = null;
-        this.count = 0;
+
+        this.velocity = 0
+        this.targetVelocity = 0
+        this.ease = 0.6
+
+        // this.count = 0;
     }
 
     init(){
@@ -46,6 +52,12 @@ class Mouse {
     }
 
     update(){
+        this.velocity = Math.sqrt( (this.coords_old.x - this.coords.x)**2 + (this.coords_old.y - this.coords.y)**2)
+        this.targetVelocity -= this.ease * (this.targetVelocity - this.velocity)
+
+        this.coords_trail.x -= this.ease * (this.coords_trail.x - this.coords.x)
+        this.coords_trail.y -= this.ease * (this.coords_trail.y - this.coords.y)
+
         this.diff.subVectors(this.coords, this.coords_old);
         this.coords_old.copy(this.coords);
 

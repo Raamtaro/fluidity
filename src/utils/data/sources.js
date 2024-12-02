@@ -1,5 +1,10 @@
 export default [
     {
+        name: 'sevenHundredKFemale',
+        type: 'gltfModel',
+        path: '/femaleSevenHundredThousand.glb'
+    },
+    {
         name: 'hundredKFemale',
         type: 'gltfModel',
         path: '/femaleOneHundredThousand.glb'

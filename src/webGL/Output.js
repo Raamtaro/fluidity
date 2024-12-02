@@ -39,6 +39,7 @@ export default class Output{
         )
 
         this.scene.add(this.output);
+        this.output.visible = false
 
         this.debugQuad = new THREE.Mesh(
             new THREE.PlaneGeometry(.5, .5),
