@@ -37,10 +37,9 @@ export default class Output{
                         boundarySpace: {
                             value: new THREE.Vector2()
                         },
-                        uBaseTexture: {
-                            value: null
-                        }
-                    }
+                        uBaseTexture: new THREE.Uniform(null)
+                    },
+                    blending: THREE.NoBlending
                 }
             )
         )
@@ -49,7 +48,7 @@ export default class Output{
         console.log(this.output)
 
         this.scene.add(this.output);
-        // this.output.visible = false
+        this.output.visible = false
 
         this.debugQuad = new THREE.Mesh(
             new THREE.PlaneGeometry(.5, .5),
@@ -65,6 +64,7 @@ export default class Output{
     
     resize() {
         this.simulation.resize()
+        this.particles.resize()
     }
 
     render() {
@@ -73,11 +73,12 @@ export default class Output{
     }
 
     update() {
-        
-        this.simulation.update()
         this.particles.update()
+        this.simulation.update()
+        
 
         this.output.material.uniforms.uBaseTexture.value = this.particles.target.texture
+        // this.output.material.uniforms.uBaseTexture.needsUpdate = true
        
 
         this.render();

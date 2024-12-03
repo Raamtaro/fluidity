@@ -56,6 +56,7 @@ class Particles {
 
         this.setupPoints()
 
+        this.target = null;
         this.compileScene()
 
     }
@@ -139,15 +140,16 @@ class Particles {
     }
 
 
-    targetSwap() {
-        Setup.renderer.setRenderTarget(this.target)
-        Setup.renderer.render(this.scene, this.camera.instance)
+    // targetSwap() {
+    //     Setup.renderer.setRenderTarget(this.target)
+    //     Setup.renderer.render(this.scene, this.camera.instance)
         
-    }
+    // }
 
     render() { //I was using this as a test
         Setup.renderer.setRenderTarget(null)
         Setup.renderer.render(this.scene, this.camera.instance)
+
 
     }
 
@@ -158,8 +160,8 @@ class Particles {
         this.shaderMaterial.uniforms.uTime.value = Setup.uniformElapsed
 
         this.points.rotation.x = 0.15 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.2)
-        this.targetSwap()
-        // this.render()
+        // this.targetSwap()
+        this.render()
     }
 }
 
