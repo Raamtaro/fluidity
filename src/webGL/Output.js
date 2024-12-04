@@ -39,7 +39,7 @@ export default class Output{
                         },
                         uBaseTexture: new THREE.Uniform(null)
                     },
-                    blending: THREE.NoBlending
+                    
                 }
             )
         )

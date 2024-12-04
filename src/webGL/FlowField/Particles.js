@@ -169,8 +169,8 @@ class Particles {
 
 
         //Rotations with Mouse coordinates
-        this.points.rotation.x = -Mouse.coords_trail.y * 0.25
-        this.points.rotation.y = Mouse.coords_trail.x * 0.175
+        this.points.rotation.x = -Mouse.coords_trail.y * 0.25 + Math.PI/16
+        this.points.rotation.y = Mouse.coords_trail.x * 0.225
 
         //Slight Rotation with time
         this.points.rotation.x += 0.05 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.4 )

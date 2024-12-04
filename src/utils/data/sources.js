@@ -5,9 +5,9 @@ export default [
         path: '/omEightHundredThousand.glb'
     },
     {
-        name: 'sevenHundredKFemale',
+        name: 'twoMilliLotus',
         type: 'gltfModel',
-        path: '/femaleSevenHundredThousand.glb'
+        path: '/lotus.glb'
     },
     {
         name: 'fourFiftyKFemale',
@@ -18,10 +18,5 @@ export default [
         name: 'twoHundredKFemale',
         type: 'gltfModel',
         path: '/femaleTwoHundredK.glb'
-    },
-    {
-        name: 'ogFemale',
-        type: 'gltfModel',
-        path: '/ogFemale.glb'
     },
 ]
