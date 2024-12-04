@@ -22,7 +22,7 @@ class Particles {
          * Set the correct geoemetry - refer to sources.js, and input the desired `name` (type: string) into setupGeometries()
          */
         this.models = resources
-        this.setupGeometries('eightHundredKOm') //Gives us this.geometry
+        this.setupGeometries('fourFiftyKFemale') //Gives us this.geometry
 
         
         /**
@@ -108,7 +108,7 @@ class Particles {
         
 
         this.points = new THREE.Points(this.bufferGeometry, this.shaderMaterial)
-        this.points.scale.set(0.215, 0.215, 0.215)
+        this.points.scale.set(0.20, 0.20, 0.20)
         this.points.frustumCulled = false
 
         this.points.renderOrder = 0
@@ -169,7 +169,7 @@ class Particles {
 
 
         //Rotations with Mouse coordinates
-        this.points.rotation.x = -Mouse.coords_trail.y * 0.175
+        this.points.rotation.x = -Mouse.coords_trail.y * 0.25
         this.points.rotation.y = Mouse.coords_trail.x * 0.175
 
         //Slight Rotation with time

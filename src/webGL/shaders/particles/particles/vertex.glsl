@@ -128,9 +128,9 @@ void main()
     vec4 particle = texture(uParticlesTexture, aParticlesUv);
 
     vec3 newPos = particle.xyz;
-    float f = .615;
+    float f = .475;
     float amplitude = 3.0;
-    float maxDistance = (1.55 - .65*max(abs(uMouse.x), abs(uMouse.y))) * amplitude ;
+    float maxDistance = (1.6 - .775*max(abs(uMouse.x), abs(uMouse.y))) * amplitude ;
     vec3 target = particle.xyz + curl(newPos.x * f, newPos.y * f, newPos.z * f) * amplitude;
 
     float d = length(newPos-target) / maxDistance;

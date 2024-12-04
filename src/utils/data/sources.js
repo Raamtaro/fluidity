@@ -10,9 +10,14 @@ export default [
         path: '/femaleSevenHundredThousand.glb'
     },
     {
-        name: 'hundredKFemale',
+        name: 'fourFiftyKFemale',
         type: 'gltfModel',
-        path: '/femaleOneHundredThousand.glb'
+        path: '/femaleFourFiftyK.glb'
+    },
+    {
+        name: 'twoHundredKFemale',
+        type: 'gltfModel',
+        path: '/femaleTwoHundredK.glb'
     },
     {
         name: 'ogFemale',

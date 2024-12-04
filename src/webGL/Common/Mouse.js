@@ -12,7 +12,7 @@ class Mouse {
 
         this.velocity = 0
         this.targetVelocity = 0
-        this.ease = 0.0225
+        this.ease = 0.0125
 
         // this.count = 0;
     }

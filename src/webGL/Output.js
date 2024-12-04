@@ -47,8 +47,8 @@ export default class Output{
 
         console.log(this.output)
 
-        this.scene.add(this.output);
-        this.output.visible = false
+        // this.scene.add(this.output);
+        // this.output.visible = false
 
         this.debugQuad = new THREE.Mesh(
             new THREE.PlaneGeometry(.5, .5),
@@ -57,14 +57,14 @@ export default class Output{
         this.debugQuad.position.set(-0.75, 0.75, 0); 
 
         // this.debugQuad.visible = false
-        this.scene.add(this.debugQuad);
+        // this.scene.add(this.debugQuad);
 
     }
 
     
     resize() {
         this.simulation.resize()
-        // this.particles.resize()
+        
     }
 
     render() {
@@ -73,14 +73,8 @@ export default class Output{
     }
 
     update() {
-        // this.particles.update() //Call this in the parent WebGL class
-        this.simulation.update()
         
-        //The below approach is incorrect
-        // this.output.material.uniforms.uBaseTexture.value = this.particles.target.texture
-        // this.output.material.uniforms.uBaseTexture.needsUpdate = true
-       
-
+        this.simulation.update()
         this.render();
     }
 }
