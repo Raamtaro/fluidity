@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Setup from '../Common/Setup.js'
+import Mouse from '../Common/Mouse.js'
 
 import CustomCamera from './ParticleSceneCamera.js'
 import GpgpuComputation from './Gpgpu.js'
@@ -41,8 +42,11 @@ class Particles {
             uSize: new THREE.Uniform(0.005),
             uResolution: new THREE.Uniform(new THREE.Vector2(Setup.width * Setup.pixelRatio, Setup.height * Setup.pixelRatio)),
             uParticlesTexture: new THREE.Uniform(),
-            uAlpha: new THREE.Uniform(0.0)
+            uAlpha: new THREE.Uniform(0.0),
+            uMouse: new THREE.Uniform(new THREE.Vector2(0.0, 0.0))
         }
+
+        console.log(this.uniforms.uMouse)
 
         this.shaderMaterial = new THREE.ShaderMaterial(
             {
@@ -140,14 +144,14 @@ class Particles {
     }
 
 
-    // targetSwap() {
-    //     Setup.renderer.setRenderTarget(this.target)
-    //     Setup.renderer.render(this.scene, this.camera.instance)
+    targetSwap() {
+        Setup.renderer.setRenderTarget(this.target)
+        Setup.renderer.render(this.scene, this.camera.instance)
         
-    // }
+    }
 
-    render() { //I was using this as a test
-        Setup.renderer.setRenderTarget(null)
+    render() { 
+        Setup.renderer.setRenderTarget(null) //cleanup
         Setup.renderer.render(this.scene, this.camera.instance)
 
 
@@ -159,8 +163,18 @@ class Particles {
         this.shaderMaterial.uniforms.uParticlesTexture.value = this.gpgpu.instance.getCurrentRenderTarget(this.gpgpu.particlesVariable).texture
         this.shaderMaterial.uniforms.uTime.value = Setup.uniformElapsed
 
-        this.points.rotation.x = 0.15 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.2)
-        // this.targetSwap()
+        //uMouse coordinates
+        this.shaderMaterial.uniforms.uMouse.value.x = Mouse.coords_trail.x
+        this.shaderMaterial.uniforms.uMouse.value.y = Mouse.coords_trail.y
+
+
+        //Rotations with Mouse coordinates
+        this.points.rotation.x = -Mouse.coords_trail.y * 0.175
+        this.points.rotation.y = Mouse.coords_trail.x * 0.175
+
+        //Slight Rotation with time
+        this.points.rotation.x += 0.05 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.4 )
+        this.targetSwap()
         this.render()
     }
 }

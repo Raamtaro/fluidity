@@ -3,6 +3,7 @@ uniform float uSize;
 uniform sampler2D uParticlesTexture;
 uniform vec3 uColor;
 uniform float uTime;
+uniform vec2 uMouse;
 
 attribute vec2 aParticlesUv;
 attribute float aSize;
@@ -128,8 +129,8 @@ void main()
 
     vec3 newPos = particle.xyz;
     float f = .615;
-    float amplitude = 2.75;
-    float maxDistance = 3.15;
+    float amplitude = 3.0;
+    float maxDistance = (1.55 - .65*max(abs(uMouse.x), abs(uMouse.y))) * amplitude ;
     vec3 target = particle.xyz + curl(newPos.x * f, newPos.y * f, newPos.z * f) * amplitude;
 
     float d = length(newPos-target) / maxDistance;

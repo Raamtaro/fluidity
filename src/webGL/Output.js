@@ -21,7 +21,7 @@ export default class Output{
         this.scene = new THREE.Scene()
         this.camera = new THREE.Camera()
 
-        this.particles = new Particles(this.resources)
+        // this.particles = new Particles(this.resources)
 
 
         this.output = new THREE.Mesh(
@@ -64,7 +64,7 @@ export default class Output{
     
     resize() {
         this.simulation.resize()
-        this.particles.resize()
+        // this.particles.resize()
     }
 
     render() {
@@ -73,11 +73,11 @@ export default class Output{
     }
 
     update() {
-        this.particles.update()
+        // this.particles.update() //Call this in the parent WebGL class
         this.simulation.update()
         
-
-        this.output.material.uniforms.uBaseTexture.value = this.particles.target.texture
+        //The below approach is incorrect
+        // this.output.material.uniforms.uBaseTexture.value = this.particles.target.texture
         // this.output.material.uniforms.uBaseTexture.needsUpdate = true
        
 
