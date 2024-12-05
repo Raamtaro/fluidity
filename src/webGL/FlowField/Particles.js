@@ -16,7 +16,7 @@ class Particles {
          */
         
         this.createScene() //Gives us this.scene + this.camera (added to the scene)
-        console.log(this.scene)
+        // console.log(this.scene)
 
         /**
          * Set the correct geoemetry - refer to sources.js, and input the desired `name` (type: string) into setupGeometries()
@@ -46,7 +46,7 @@ class Particles {
             uMouse: new THREE.Uniform(new THREE.Vector2(0.0, 0.0))
         }
 
-        console.log(this.uniforms.uMouse)
+        // console.log(this.uniforms.uMouse)
 
         this.shaderMaterial = new THREE.ShaderMaterial(
             {
@@ -76,7 +76,7 @@ class Particles {
         this.models[name].scene.traverse((child) => {
             if (child.isMesh) {
                 this.geometry = child.geometry
-                console.log(this.geometry)
+                // console.log(this.geometry)
                 return
             }
         })
@@ -130,7 +130,6 @@ class Particles {
         )
 
         console.log(this.target)
-
     }
 
     targetResize() {

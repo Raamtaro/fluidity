@@ -2,7 +2,8 @@
 import Setup from "./Common/Setup.js";
 import Mouse from "./Common/Mouse.js";
 import Particles from "./FlowField/Particles.js";
-import Output from "./Output.js";
+import Output from "./StableFluidSimulation/Output.js";
+import PostScene from "./PostScene.js";
 
 
 import Resources from "../utils/resources.js";
@@ -16,12 +17,6 @@ export default class WebGL {
         Setup.init()
         Mouse.init()
 
-        // this.init()
-        // this.loop()
-
-
-        //init() and loop() have been added to the startup function
-        //These should only fire after the resources have loaded
         this.resources = new Resources(sources)
         this.resources.on('ready', this.startup.bind(this))
 
@@ -33,10 +28,13 @@ export default class WebGL {
         //Initialize common properties and set up canvas
 
         this.props.$wrapper.prepend(Setup.renderer.domElement);
+
+        /**
+         * Particles and Output should be declared in PostScene
+         * Comment after next commit, remove after the subsequent
+         */
+        //this.final = new PostScene()
         this.particles = new Particles(this.resources.items)
-
-
-
         this.output = new Output(this.resources.items)
     }
 
@@ -44,13 +42,26 @@ export default class WebGL {
         //Update WebGL innards
         Mouse.update()
         Setup.update()
-        this.particles.update() //This is a debug statement to see if the particle scene works
+
+
+        /**
+         * These will be moved to the PostScene's update method
+         * Comment after next commit, remove after the subsequent
+         */
+        //this.final.update()
+        this.particles.update() 
         this.output.update()
-        // console.log('rendering')
+        
     }
 
     resize() {
         Setup.resize()
+
+        /**
+         * These will be moved to the PostScene's resize method
+         * Comment after next commit, remove after the subsequent
+         */
+        //this.final.resize()
         this.particles.resize()
         this.output.resize()
 
