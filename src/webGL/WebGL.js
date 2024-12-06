@@ -33,24 +33,24 @@ export default class WebGL {
          * Particles and Output should be declared in PostScene
          * Comment after next commit, remove after the subsequent
          */
-        //this.final = new PostScene()
-        this.particles = new Particles(this.resources.items)
-        this.output = new Output(this.resources.items)
+        this.final = new PostScene(this.resources)
+        // this.particles = new Particles(this.resources.items)
+        // this.output = new Output()
     }
 
     render() {
         //Update WebGL innards
         Mouse.update()
         Setup.update()
-
+        this.final.render()
 
         /**
          * These will be moved to the PostScene's update method
          * Comment after next commit, remove after the subsequent
          */
         //this.final.update()
-        this.particles.update() 
-        this.output.update()
+        // this.particles.update() 
+        // this.output.update()
         
     }
 
@@ -62,8 +62,8 @@ export default class WebGL {
          * Comment after next commit, remove after the subsequent
          */
         //this.final.resize()
-        this.particles.resize()
-        this.output.resize()
+        // this.particles.resize()
+        // this.output.resize()
 
     }
 

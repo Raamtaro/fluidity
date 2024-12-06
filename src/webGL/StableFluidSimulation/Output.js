@@ -11,8 +11,8 @@ import color_frag from '../shaders/fragment/color.glsl'
 
 
 export default class Output{
-    constructor(resources){
-        this.resources = resources
+    constructor(){
+        
 
         this.target = null
         this.init()

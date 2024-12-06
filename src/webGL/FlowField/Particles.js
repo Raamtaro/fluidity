@@ -43,7 +43,7 @@ class Particles {
             uResolution: new THREE.Uniform(new THREE.Vector2(Setup.width * Setup.pixelRatio, Setup.height * Setup.pixelRatio)),
             uParticlesTexture: new THREE.Uniform(),
             uAlpha: new THREE.Uniform(0.0),
-            uMouse: new THREE.Uniform(new THREE.Vector2(0.0, 0.0))
+            uMouse: new THREE.Uniform(new THREE.Vector2(-10.0, 10.0))
         }
 
         // console.log(this.uniforms.uMouse)
