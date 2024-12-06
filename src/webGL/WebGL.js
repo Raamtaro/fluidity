@@ -42,7 +42,7 @@ export default class WebGL {
         //Update WebGL innards
         Mouse.update()
         Setup.update()
-        this.final.render()
+        this.final.update()
 
         /**
          * These will be moved to the PostScene's update method
@@ -56,6 +56,7 @@ export default class WebGL {
 
     resize() {
         Setup.resize()
+        this.final.resize()
 
         /**
          * These will be moved to the PostScene's resize method

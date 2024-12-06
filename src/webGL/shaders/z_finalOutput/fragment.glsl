@@ -1,5 +1,12 @@
+uniform vec2 uResolution;
+uniform sampler2D uBaseTexture;
+uniform sampler2D uFluidTexture;
+
 varying vec2 vUv;
 
 void main() {
-    gl_FragColor = vec4(vUv, 0.0, 1.0);
+    vec2 newUv = vUv;
+    vec4 baseScene = texture2D(uBaseTexture, newUv);
+    
+    gl_FragColor = vec4(baseScene.rgba);
 }

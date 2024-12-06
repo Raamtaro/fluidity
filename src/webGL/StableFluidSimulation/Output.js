@@ -107,7 +107,7 @@ export default class Output{
     update() {
         
         this.simulation.update()
-        this.targetSwap()
-        this.render();
+        // this.targetSwap()
+        // this.render();
     }
 }

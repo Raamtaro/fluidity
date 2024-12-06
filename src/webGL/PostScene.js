@@ -16,9 +16,7 @@ export default class PostScene {
         this.loader = new THREE.TextureLoader() //Just in case I want to test a texture
 
         this.particleScene = new Particles(this.resources.items)
-
-
-
+        this.fluidOutput = new Output()
 
         this.cameraConfig()
         this.setupMaterial()
@@ -43,7 +41,7 @@ export default class PostScene {
 
     setupMaterial() {
         this.uniforms = {
-            // uParticleSceneTexture: new THREE.Uniform(this.loader.load(polarBearTexture)), //Hello world
+            
             uBaseTexture: new THREE.Uniform(null),
             uFluidTexture: new THREE.Uniform(null),
             uResolution: new THREE.Uniform(new THREE.Vector2(Setup.width * Setup.pixelRatio, Setup.height * Setup.pixelRatio)),
@@ -71,8 +69,36 @@ export default class PostScene {
         this.scene.add(this.quad)
     }
 
+    resize() {
+        this.particleScene.resize()
+        this.fluidOutput.resize()
+        this.material.uniforms.uResolution.value.set(Setup.width * Setup.pixelRatio, Setup.height * Setup.pixelRatio)
+    }
+
+    updateSims() {
+        this.particleScene.update()
+        this.fluidOutput.update()
+    }
+
+    targetSwap() {
+        this.particleScene.targetSwap()
+        this.fluidOutput.targetSwap()
+    }
+
+    updateUniforms() {
+        this.quad.material.uniforms.uBaseTexture.value = this.particleScene.target.texture
+        this.quad.material.uniforms.uFluidTexture.value = this.fluidOutput.target.texture
+    }
+
     render() {
         Setup.renderer.setRenderTarget(null)
         Setup.renderer.render(this.scene, this.camera);
+    }
+
+    update() {
+        this.updateSims()
+        this.targetSwap()
+        this.updateUniforms()
+        this.render()
     }
 }
