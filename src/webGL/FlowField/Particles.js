@@ -174,7 +174,7 @@ class Particles {
         //Slight Rotation with time
         this.points.rotation.x += 0.05 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.4 )
         // this.targetSwap()
-        // this.render()
+        this.render() //uncommnt this if I'm going to render it directly
     }
 }
 

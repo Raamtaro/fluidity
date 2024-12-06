@@ -52,7 +52,7 @@ export default class Output{
 
         // console.log(this.output)
 
-        // this.scene.add(this.output);
+        this.scene.add(this.output);
         // this.output.visible = false
 
         this.debugQuad = new THREE.Mesh(
