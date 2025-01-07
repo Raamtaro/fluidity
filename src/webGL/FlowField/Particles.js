@@ -22,7 +22,7 @@ class Particles {
          * Set the correct geoemetry - refer to sources.js, and input the desired `name` (type: string) into setupGeometries()
          */
         this.models = resources
-        this.setupGeometries('fourFiftyKFemale') //Gives us this.geometry
+        this.setupGeometries('twoMilliLotus') //Gives us this.geometry
 
         
         /**
@@ -174,7 +174,7 @@ class Particles {
         //Slight Rotation with time
         this.points.rotation.x += 0.05 * Math.sin(this.points.rotation.y + Setup.uniformElapsed*0.4 )
         // this.targetSwap()
-        this.render() //uncommnt this if I'm going to render it directly
+        // this.render() //uncommnt this if I'm going to render it directly
     }
 }
 

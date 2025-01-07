@@ -7,7 +7,7 @@ varying vec2 vUv;
 void main() {
     vec2 newUv = vUv;
     vec4 baseScene = texture2D(uFluidTexture, newUv); //This works fine for some reason
-    // vec4 baseScene = texture2D(uBaseTexture, newUv);
+    // vec4 baseScene = texture2D(uBaseTexture, newUv); //This results in the overlap issue
     
     gl_FragColor = vec4(baseScene.rgba);
 }
